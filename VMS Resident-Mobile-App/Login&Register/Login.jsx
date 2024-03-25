@@ -27,7 +27,7 @@ function LoginPage() {
     };
 
     axios
-      .post("http://192.168.0.4:5002/residentLogin", userData)
+      .post("http://172.20.10.3/residentLogin", userData)
       .then((res) => {
         // console.log(res.data);
         if (res.data.status == "ok") {
@@ -37,7 +37,7 @@ function LoginPage() {
           console.log("Token is:", res.data.data);
           const token = res.data.data;
           axios
-            .post("http://192.168.0.4:5002/residentData", {
+            .post("http://172.20.10.3:5002/residentData", {
               token: token,
             })
             .then((res) => {

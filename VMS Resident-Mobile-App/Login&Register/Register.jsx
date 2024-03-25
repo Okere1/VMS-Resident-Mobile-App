@@ -39,7 +39,7 @@ function RegisterPage() {
 
     if (emailVerify && passwordVerify) {
       axios
-        .post("http://192.168.0.4:5002/residentRegister", userData)
+        .post("http://172.20.10.3:5002/residentRegister", userData)
         .then((res) => {
           // console.log(res.data);
           if (res.data.status == "ok") {
