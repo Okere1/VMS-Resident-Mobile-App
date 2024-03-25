@@ -1,5 +1,10 @@
-import DrawerNav from "./DrawerNav";
+import AuthStack from "./AuthStack";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function Root() {
-  return <DrawerNav />;
+  return (
+    <NavigationContainer>
+      <AuthStack />
+    </NavigationContainer>
+  );
 }

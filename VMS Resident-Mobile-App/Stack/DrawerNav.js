@@ -12,23 +12,23 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNav() {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerContent={(props) => <DrawerContent {...props} />}
-        initialRouteName="Home"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#007bff",
-          },
-          headerTintColor: "#ffffff",
-        }}
-      >
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Guest Control" component={GuestControlScreen} />
-        <Drawer.Screen name="Report" component={ReportScreen} />
-        <Drawer.Screen name="Committee" component={CommitteeScreen} />
-        <Drawer.Screen name="Chat" component={ChatScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    <Drawer.Navigator
+      drawerContent={(props) => <DrawerContent {...props} />}
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#007bff",
+        },
+        headerTintColor: "#ffffff",
+      }}
+    >
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Guest Control" component={GuestControlScreen} />
+      <Drawer.Screen name="Report" component={ReportScreen} />
+      <Drawer.Screen name="Committee" component={CommitteeScreen} />
+      <Drawer.Screen name="Chat" component={ChatScreen} />
+    </Drawer.Navigator>
+    // </NavigationContainer>
   );
 }
