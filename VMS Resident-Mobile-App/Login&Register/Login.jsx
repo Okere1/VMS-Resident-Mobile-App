@@ -27,7 +27,7 @@ function LoginPage() {
     };
 
     axios
-      .post("http://172.20.10.3/residentLogin", userData)
+      .post("http://172.20.10.3:5002/residentLogin", userData)
       .then((res) => {
         // console.log(res.data);
         if (res.data.status == "ok") {
@@ -41,14 +41,16 @@ function LoginPage() {
               token: token,
             })
             .then((res) => {
+              console.log("Resident Name from Login is:", res.data.data.name);
               console.log(
-                "The Special data from Login is:",
-                res.data.data.name
+                "Resident Estate ID from Login is:",
+                res.data.data.residentId
               );
               AsyncStorage.setItem(
                 "residentName",
                 JSON.stringify(res.data.data.name)
               );
+              AsyncStorage.setItem("residentId", res.data.data.residentId);
             })
             .catch((error) => console.log(error));
           navigation.navigate("Home_1");

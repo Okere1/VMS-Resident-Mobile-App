@@ -5,15 +5,15 @@ import { Avatar, Title } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import axios from "axios";
 
 const DrawerList = [
   { icon: "home-outline", label: "Home", navigateTo: "Home" },
   {
     icon: "account-multiple",
-    label: "Guest Control",
-    navigateTo: "Guest Control",
+    label: "Guest Invite",
+    navigateTo: "Guest Invite",
   },
   { icon: "account-group", label: "Report", navigateTo: "Report" },
   { icon: "bookshelf", label: "Chat", navigateTo: "Chat" },
@@ -47,12 +47,12 @@ const DrawerLayout = ({ icon, label, navigateTo }) => {
 function DrawerContent(props) {
   const navigation = useNavigation();
 
-  //   // HANDLE SIGNOUT
-  //   function signOut() {
-  //     AsyncStorage.setItem("isLoggedIn", "");
-  //     AsyncStorage.setItem("token", "");
-  //     navigation.navigate("LoginUser");
-  //   }
+  // HANDLE SIGNOUT
+  function signOut() {
+    AsyncStorage.setItem("isLoggedIn", "");
+    AsyncStorage.setItem("token", "");
+    navigation.navigate("Login");
+  }
 
   //   // GET USER DETAILS FROM DATABASE BACKEND OPERATIONS
   //   const [userInfor, setUserInfor] = useState("");

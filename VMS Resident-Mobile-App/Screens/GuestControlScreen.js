@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,71 +10,183 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
+  Linking,
 } from "react-native";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const InviteGuestForm = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [token, setToken] = useState("");
+  const [destination, setDestination] = useState("");
+  const [entryCode, setEntryCode] = useState("");
+  const [estateName, setEstateName] = useState("");
+  const [residentId, setResidentId] = useState("");
   const [message, setMessage] = useState("");
   const [communicationOption, setCommunicationOption] = useState(null);
 
+  console.log("Communucation option is:", communicationOption);
   const generateRandomToken = () => {
     const randomNumber = Math.floor(1000 + Math.random() * 9000);
-    setToken(randomNumber.toString());
+    setEntryCode(randomNumber.toString());
     setMessage(
-      `You are invited to Royal Garden Estate.\n\nYour Access code is  Code is ${randomNumber}, Please ensure not to share this code with anyone, thank you.`
+      `You are invited to the ${estateName}, Building ${destination}.\n\nYour Entry Code is ${randomNumber}, Please ensure not to share this code with anyone, thank you.`
     );
+  };
+
+  // Dont forget that the API called here is that of the Super Admin (To access the Admins Estate Name)
+  async function getEstateName() {
+    axios.get("http://172.20.10.3:5003/getAdminData").then((res) => {
+      const estName = res.data[0];
+      console.log("Estate Name:", estName.estateName);
+      setEstateName(estName.estateName);
+    });
+  }
+
+  const getResidentId = async () => {
+    try {
+      const data = await AsyncStorage.getItem("residentId");
+      if (data !== null) {
+        // const parsedData = JSON.parse(data);
+        console.log("residentId Inside useEffect function:", data);
+        setResidentId(data);
+      }
+    } catch (error) {
+      console.error("Error retrieving residentId from AsyncStorage:", error);
+    }
+  };
+
+  console.log("Resident ID in Guest Control Page is:", residentId);
+
+  const visitorData = {
+    name: name,
+    phoneNumber: phoneNumber,
+    email: email,
+    destination: destination,
+    entryCode: entryCode,
+    residentId: residentId,
+  };
+
+  function sendVistorData() {
+    axios
+      .post("http://172.20.10.3:5002/inviteVisitor", visitorData)
+      .then((res) => {
+        if (res.data.status == "ok") {
+          console.log("Vistors data successfully sent to DB");
+          setName("");
+          setPhoneNumber("");
+          setEmail("");
+          setDestination("");
+          setEntryCode("");
+          setMessage("");
+          setCommunicationOption(null);
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
+  const openWhatsApp = () => {
+    const url = `whatsapp://send?text=${encodeURIComponent(message)}`;
+    Linking.openURL(url).catch(() => {
+      Alert.alert("WhatsApp is not installed on your device.");
+    });
+  };
+
+  const openEmail = () => {
+    const url = `mailto:${email}?subject=Invitation&body=${encodeURIComponent(
+      message
+    )}`;
+    Linking.openURL(url).catch(() => {
+      Alert.alert("No email app is installed on your device.");
+    });
+  };
+
+  const openSMS = () => {
+    const url = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+    Linking.openURL(url).catch(() => {
+      Alert.alert("No SMS app is installed on your device.");
+    });
   };
 
   const handleSend = () => {
     // Construct message with token and other text
-    const fullMessage = `${message} Your access token is: ${token}`;
-
+    const fullMessage = `${message} Your access token is: ${entryCode}`;
+    console.log("handleSend Function has been called");
     // Implement logic to send message based on selected communication option
     if (communicationOption === "email") {
       // Send email
+      openEmail();
+      sendVistorData();
     } else if (communicationOption === "sms") {
       // Open SMS app
+      openSMS();
+      sendVistorData();
     } else if (communicationOption === "whatsapp") {
       // Open WhatsApp app
+      openWhatsApp();
+      sendVistorData();
     }
   };
+
+  useEffect(() => {
+    getEstateName();
+    getResidentId();
+  }, []);
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <ScrollView contentContainerStyle={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View>
-            <Text style={styles.inputLabel}>Name</Text>
+            <View
+              style={[
+                { backgroundColor: "#349fd9", padding: 25, borderRadius: 10 },
+              ]}
+            >
+              <Text style={styles.inputLabel}>Visitor's Name</Text>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Name"
-              value={name}
-              onChangeText={(text) => setName(text)}
-            />
-            <Text style={[styles.inputLabel, { marginTop: 15 }]}>
-              Phone Number
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Phone Number"
-              value={phoneNumber}
-              onChangeText={(text) => setPhoneNumber(text)}
-              keyboardType="numeric"
-            />
-            <Text style={[styles.inputLabel, { marginTop: 15 }]}>
-              Email Address
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              keyboardType="email-address"
-            />
+              <TextInput
+                style={styles.input}
+                placeholder="Name"
+                placeholderTextColor="lightgray"
+                value={name}
+                onChangeText={(text) => setName(text)}
+              />
+              <Text style={[styles.inputLabel, { marginTop: 15 }]}>
+                Phone Number
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter mobile Number"
+                placeholderTextColor="lightgray"
+                value={phoneNumber}
+                onChangeText={(text) => setPhoneNumber(text)}
+                keyboardType="numeric"
+              />
+              <Text style={[styles.inputLabel, { marginTop: 15 }]}>
+                Email Address
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter email address"
+                placeholderTextColor="lightgray"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                keyboardType="email-address"
+              />
+              <Text style={[styles.inputLabel, { marginTop: 15 }]}>
+                Estate Flat Number (destination)
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Building Number"
+                placeholderTextColor="lightgray"
+                value={destination}
+                onChangeText={(text) => setDestination(text)}
+                keyboardType="numeric"
+              />
+            </View>
             <Text style={[styles.inputLabel, { marginTop: 15 }]}>
               Pick Communication Option
             </Text>
@@ -82,6 +194,7 @@ const InviteGuestForm = () => {
               <TouchableOpacity
                 style={[
                   styles.radioButton,
+                  { backgroundColor: "#ac79b3" },
                   communicationOption === "whatsapp" &&
                     styles.radioButtonSelected,
                 ]}
@@ -92,27 +205,29 @@ const InviteGuestForm = () => {
               <TouchableOpacity
                 style={[
                   styles.radioButton,
+                  { backgroundColor: "#4b9c54" },
                   communicationOption === "email" && styles.radioButtonSelected,
                 ]}
                 onPress={() => setCommunicationOption("email")}
               >
-                <Text style={styles.radioText}>Email</Text>
+                <Text style={[styles.radioText, { width: 75 }]}>Email </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[
                   styles.radioButton,
+                  { backgroundColor: "#03fce3" },
                   communicationOption === "sms" && styles.radioButtonSelected,
                 ]}
                 onPress={() => setCommunicationOption("sms")}
               >
-                <Text style={styles.radioText}>SMS</Text>
+                <Text style={[styles.radioText, { width: 70 }]}>SMS</Text>
               </TouchableOpacity>
             </View>
             <TextInput
               style={[styles.input, styles.tokenInput]}
               placeholder="Generated Access Token"
-              value={token}
-              onChangeText={(text) => setToken(text)}
+              value={entryCode}
+              onChangeText={(text) => setEntryCode(text)}
               editable={false}
             />
             <TouchableOpacity
@@ -144,11 +259,13 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: "gray",
+    borderColor: "lightgray",
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
+    color: "lightgray",
+    backgroundColor: "#e9f0f0",
   },
   label: {
     fontSize: 16,
@@ -157,6 +274,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 15,
     marginBottom: 5,
+    color: "white",
   },
   radioGroup: {
     flexDirection: "row",
