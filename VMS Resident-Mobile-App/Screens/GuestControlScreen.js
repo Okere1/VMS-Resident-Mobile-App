@@ -79,8 +79,8 @@ const InviteGuestForm = () => {
         if (res.data.status == "ok") {
           console.log("Vistors data successfully sent to DB");
           setName("");
-          setPhoneNumber("");
-          setEmail("");
+          setEntryDate("");
+          setEntryTime("");
           setDestination("");
           setEntryCode("");
           setMessage("");

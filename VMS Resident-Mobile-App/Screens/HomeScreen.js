@@ -40,6 +40,7 @@ const HomeScreen = () => {
   console.log("Outside functions, Street Name is:", residentStreet);
   console.log("Outside functions, Resident Name is:", residentName);
   console.log("Outside functions, token is:", token);
+  console.log("Outside functions, estate Name is:", estateName);
 
   const getToken = async () => {
     try {
