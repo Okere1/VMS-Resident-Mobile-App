@@ -46,10 +46,7 @@ function LoginPage() {
                 "Resident Estate ID from Login is:",
                 res.data.data.residentId
               );
-              AsyncStorage.setItem(
-                "residentName",
-                JSON.stringify(res.data.data.name)
-              );
+              AsyncStorage.setItem("residentName", res.data.data.name);
               AsyncStorage.setItem("residentId", res.data.data.residentId);
             })
             .catch((error) => console.log(error));

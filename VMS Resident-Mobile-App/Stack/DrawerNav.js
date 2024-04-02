@@ -7,6 +7,7 @@ import ReportScreen from "../Screens/ReportScreen";
 import CommitteeScreen from "../Screens/CommitteeScreen";
 import ChatScreen from "../Screens/ChatScreen";
 import DrawerContent from "./DrawerContent";
+import ProfileScreen from "../Screens/ProfileScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -27,6 +28,7 @@ export default function DrawerNav() {
       <Drawer.Screen name="Guest Invite" component={GuestControlScreen} />
       <Drawer.Screen name="Report" component={ReportScreen} />
       <Drawer.Screen name="Committee" component={CommitteeScreen} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} />
       <Drawer.Screen name="Chat" component={ChatScreen} />
     </Drawer.Navigator>
     // </NavigationContainer>

@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import axios from "axios";
+import axios from "axios";
 
 const DrawerList = [
   { icon: "home-outline", label: "Home", navigateTo: "Home" },
@@ -16,6 +16,7 @@ const DrawerList = [
     navigateTo: "Guest Invite",
   },
   { icon: "account-group", label: "Report", navigateTo: "Report" },
+  { icon: "account-group", label: "Profile", navigateTo: "Profile" },
   { icon: "bookshelf", label: "Chat", navigateTo: "Chat" },
 ];
 
@@ -54,27 +55,27 @@ function DrawerContent(props) {
     navigation.navigate("Login");
   }
 
-  //   // GET USER DETAILS FROM DATABASE BACKEND OPERATIONS
-  //   const [userInfor, setUserInfor] = useState("");
+  // GET USER DETAILS FROM DATABASE BACKEND OPERATIONS
+  const [residentInfor, setResidentInfor] = useState("");
 
-  //   async function getUserData() {
-  //     const token = await AsyncStorage.getItem("token");
-  //     // console.log(token);
-  //     axios
-  //       .post("https://bsp-node-backend.onrender.com/userdata", {
-  //         token: token,
-  //       })
-  //       .then((res) => {
-  //         console.log(res.data.data);
-  //         setUserInfor(res.data.data);
-  //         console.log(userInfor.names);
-  //       })
-  //       .catch((error) => console.log(error));
-  //   }
+  async function getUserData() {
+    const token = await AsyncStorage.getItem("token");
+    // console.log(token);
+    axios
+      .post("http://172.20.10.3:5002/residentData", {
+        token: token,
+      })
+      .then((res) => {
+        // console.log(res.data.data.name);
+        setResidentInfor(res.data.data);
+        // console.log(userInfor.names);
+      })
+      .catch((error) => console.log(error));
+  }
 
-  //   useEffect(() => {
-  //     getUserData();
-  //   }, []);
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -90,19 +91,19 @@ function DrawerContent(props) {
                   size={50}
                   style={{ marginTop: 5 }}
                 />
-                {/* <View style={{ marginLeft: 10, flexDirection: "column" }}>
-                  <Title style={styles.title}>{userInfor.names}</Title>
+                <View style={{ marginLeft: 19, flexDirection: "column" }}>
+                  <Title style={styles.title}>{residentInfor.name}</Title>
                   <Text style={styles.caption} numberOfLines={1}>
-                    {userInfor.email}
+                    {residentInfor.residentEmail}
                   </Text>
-                </View> */}
+                </View>
 
                 <View style={{ marginLeft: 10, flexDirection: "column" }}>
                   <Title style={styles.title}>
-                    {/* {userInfor ? userInfor.names : ""} */}
+                    {residentInfor ? residentInfor.name : ""}
                   </Title>
                   <Text style={styles.caption} numberOfLines={1}>
-                    {/* {userInfor ? userInfor.email : ""} */}
+                    {residentInfor ? residentInfor.residentEmail : ""}
                   </Text>
                 </View>
               </View>

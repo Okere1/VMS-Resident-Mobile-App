@@ -14,12 +14,16 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import EntryDate from "../Components/entryDate";
+import EntryTime from "../Components/entryTime";
 
 const InviteGuestForm = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [destination, setDestination] = useState("");
+  const [entryDate, setEntryDate] = useState("");
+  const [entryTime, setEntryTime] = useState("");
   const [entryCode, setEntryCode] = useState("");
   const [estateName, setEstateName] = useState("");
   const [residentId, setResidentId] = useState("");
@@ -31,7 +35,7 @@ const InviteGuestForm = () => {
     const randomNumber = Math.floor(1000 + Math.random() * 9000);
     setEntryCode(randomNumber.toString());
     setMessage(
-      `You are invited to the ${estateName}, Building ${destination}.\n\nYour Entry Code is ${randomNumber}, Please ensure not to share this code with anyone, thank you.`
+      `Hi ${name}, You are invited to the ${estateName}, Building ${destination}.\n\nYour Entry Code is ${randomNumber}, Please ensure not to share this code with anyone, thank you.`
     );
   };
 
@@ -61,9 +65,9 @@ const InviteGuestForm = () => {
 
   const visitorData = {
     name: name,
-    phoneNumber: phoneNumber,
-    email: email,
     destination: destination,
+    entryDate: entryDate,
+    entryTime: entryTime,
     entryCode: entryCode,
     residentId: residentId,
   };
@@ -154,28 +158,6 @@ const InviteGuestForm = () => {
                 onChangeText={(text) => setName(text)}
               />
               <Text style={[styles.inputLabel, { marginTop: 15 }]}>
-                Phone Number
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter mobile Number"
-                placeholderTextColor="lightgray"
-                value={phoneNumber}
-                onChangeText={(text) => setPhoneNumber(text)}
-                keyboardType="numeric"
-              />
-              <Text style={[styles.inputLabel, { marginTop: 15 }]}>
-                Email Address
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter email address"
-                placeholderTextColor="lightgray"
-                value={email}
-                onChangeText={(text) => setEmail(text)}
-                keyboardType="email-address"
-              />
-              <Text style={[styles.inputLabel, { marginTop: 15 }]}>
                 Estate Flat Number (destination)
               </Text>
               <TextInput
@@ -186,8 +168,28 @@ const InviteGuestForm = () => {
                 onChangeText={(text) => setDestination(text)}
                 keyboardType="numeric"
               />
+
+              <Text style={[styles.inputLabel, { marginTop: 15 }]}>
+                Invite Date
+              </Text>
+              <EntryDate entryDate={entryDate} setEntryDate={setEntryDate} />
+
+              <Text style={[styles.inputLabel, { marginTop: 15 }]}>
+                Invite Time
+              </Text>
+              <EntryTime entryTime={entryTime} setEntryTime={setEntryTime} />
+              {/* <TextInput
+                style={styles.input}
+                placeholder="Enter email address"
+                placeholderTextColor="lightgray"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                keyboardType="email-address"
+              /> */}
             </View>
-            <Text style={[styles.inputLabel, { marginTop: 15 }]}>
+            <Text
+              style={[styles.inputLabel, { marginTop: 15, color: "#979a9c" }]}
+            >
               Pick Communication Option
             </Text>
             <View style={styles.radioGroup}>
@@ -223,27 +225,55 @@ const InviteGuestForm = () => {
                 <Text style={[styles.radioText, { width: 70 }]}>SMS</Text>
               </TouchableOpacity>
             </View>
-            <TextInput
-              style={[styles.input, styles.tokenInput]}
-              placeholder="Generated Access Token"
-              value={entryCode}
-              onChangeText={(text) => setEntryCode(text)}
-              editable={false}
-            />
-            <TouchableOpacity
-              style={styles.generateButton}
-              onPress={generateRandomToken}
+            <View
+              style={[
+                { backgroundColor: "#37ab7e", padding: 10, borderRadius: 10 },
+              ]}
             >
-              <Text style={styles.generateButtonText}>Generate Token</Text>
+              <TextInput
+                style={[
+                  styles.input,
+                  styles.tokenInput,
+                  { backgroundColor: "#dae8e2" },
+                ]}
+                placeholder="Generated Access Token"
+                value={entryCode}
+                onChangeText={(text) => setEntryCode(text)}
+                editable={false}
+              />
+              <TouchableOpacity
+                style={[styles.generateButton, { backgroundColor: "#247351" }]}
+                onPress={generateRandomToken}
+              >
+                <Text style={[styles.generateButtonText, { color: "white" }]}>
+                  Generate Entry Code
+                </Text>
+              </TouchableOpacity>
+              <TextInput
+                style={[styles.input, styles.messageInput]}
+                placeholder="Message"
+                value={message}
+                onChangeText={(text) => setMessage(text)}
+                multiline
+              />
+            </View>
+            <TouchableOpacity
+              style={[
+                {
+                  // backgroundColor: "#247351",
+                  backgroundColor: "#2c5a82",
+                  paddingVertical: 10,
+                  paddingHorizontal: 20,
+                  borderRadius: 5,
+                  marginTop: 10,
+                },
+              ]}
+              onPress={handleSend}
+            >
+              <Text style={[styles.generateButtonText, { color: "white" }]}>
+                SEND
+              </Text>
             </TouchableOpacity>
-            <TextInput
-              style={[styles.input, styles.messageInput]}
-              placeholder="Message"
-              value={message}
-              onChangeText={(text) => setMessage(text)}
-              multiline
-            />
-            <Button title="Send" onPress={handleSend} />
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
@@ -255,7 +285,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    marginTop: 10,
+    marginTop: -5,
   },
   input: {
     height: 40,
@@ -264,7 +294,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
-    color: "lightgray",
+    color: "#404744",
     backgroundColor: "#e9f0f0",
   },
   label: {
@@ -313,6 +343,7 @@ const styles = StyleSheet.create({
   },
   messageInput: {
     height: 100,
+    color: "#247351",
   },
 });
 
