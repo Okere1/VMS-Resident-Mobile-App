@@ -39,6 +39,9 @@ function ReportScreen(props) {
 
   useEffect(() => {
     getResidentId();
+  }, []);
+
+  useEffect(() => {
     getToken();
     async function getVisitorData() {
       console.log("Running getResidentData function");
@@ -58,35 +61,182 @@ function ReportScreen(props) {
       }
     }
     getVisitorData();
-  }, []);
+  }, [residentId]);
+
+  let visitorCounter = 1;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.visitorContainer}>
           {visitorData.map((visitor, index) => (
-            <View key={index} style={styles.visitorItem}>
-              <Text style={styles.itemText}>Name: {visitor.name}</Text>
-              <Text style={styles.itemText}>
-                Invite Date: {visitor.inviteDate}
-              </Text>
-              <Text style={styles.itemText}>
-                Invite Time: {visitor.inviteTime}
-              </Text>
-              <Text style={styles.itemText}>
-                Destination: {visitor.destination}
-              </Text>
-              <Text style={styles.itemText}>
-                Entry Code: {visitor.entryCode}
-              </Text>
-              <Text style={styles.itemText}>
-                Entry Date: {visitor.entryDate}
-              </Text>
-              <Text style={styles.itemText}>
-                Entry Time: {visitor.entryTime}
-              </Text>
-              <Text style={styles.itemText}>Exit Date: {visitor.exitDate}</Text>
-              <Text style={styles.itemText}>Exit Time: {visitor.exitTime}</Text>
+            <View
+              key={index}
+              style={[
+                styles.visitorItem,
+                {
+                  backgroundColor: "#70bbcc",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                },
+              ]}
+            >
+              <View
+                style={[
+                  {
+                    // borderWidth: 1,
+                    // borderBlockColor: "gray",
+                    backgroundColor: "#a8e3d7",
+                    padding: 5,
+                    borderRadius: 5,
+                    height: 35,
+                    width: "35%",
+                    marginTop: 5,
+                    marginLeft: 5,
+                  },
+                ]}
+              >
+                <Text style={styles.itemText}>
+                  Name: {visitor.name ? visitor.name : "Null"}
+                </Text>
+              </View>
+
+              <View
+                style={[
+                  {
+                    // borderWidth: 1,
+                    // borderBlockColor: "gray",
+                    backgroundColor: "#b5a98a",
+                    padding: 5,
+                    borderRadius: 5,
+                    height: 35,
+                    width: "59%",
+                    marginTop: 5,
+                    marginLeft: 10,
+                  },
+                ]}
+              >
+                <Text style={styles.itemText}>
+                  Invite Date:{" "}
+                  {visitor.inviteDate ? visitor.inviteDate : "Null"}
+                </Text>
+              </View>
+              <View
+                style={[
+                  {
+                    // borderWidth: 1,
+                    // borderBlockColor: "gray",
+                    backgroundColor: "#7e8ca3",
+                    padding: 5,
+                    borderRadius: 5,
+                    height: 35,
+                    width: "35%",
+                    marginTop: 5,
+                    marginLeft: 5,
+                  },
+                ]}
+              >
+                <Text style={styles.itemText}>
+                  Destination:{" "}
+                  {visitor.destination ? visitor.destination : "Null"}
+                </Text>
+              </View>
+              <View
+                style={[
+                  {
+                    // borderWidth: 1,
+                    // borderBlockColor: "gray",
+                    backgroundColor: "#b79dc4",
+                    padding: 5,
+                    borderRadius: 5,
+                    height: 35,
+                    width: "59%",
+                    marginTop: 5,
+                    marginLeft: 10,
+                  },
+                ]}
+              >
+                <Text style={styles.itemText}>
+                  Entry Code: {visitor.entryCode ? visitor.entryCode : "Null"}
+                </Text>
+              </View>
+              <View
+                style={[
+                  {
+                    // borderWidth: 1,
+                    // borderBlockColor: "gray",
+                    backgroundColor: "#5bb035",
+                    padding: 5,
+                    borderRadius: 5,
+                    height: 35,
+                    width: "35%",
+                    marginTop: 5,
+                    marginLeft: 5,
+                  },
+                ]}
+              >
+                <Text style={styles.itemText}>
+                  Entry Date: {visitor.entryDate}
+                </Text>
+              </View>
+              <View
+                style={[
+                  {
+                    // borderWidth: 1,
+                    // borderBlockColor: "gray",
+                    backgroundColor: "#c29286",
+                    padding: 5,
+                    borderRadius: 5,
+                    height: 35,
+                    width: "59%",
+                    marginTop: 5,
+                    marginLeft: 10,
+                  },
+                ]}
+              >
+                <Text style={styles.itemText}>
+                  Entry Time: {visitor.entryTime}
+                </Text>
+              </View>
+              <View
+                style={[
+                  {
+                    // borderWidth: 1,
+                    // borderBlockColor: "gray",
+                    backgroundColor: "#8f46b0",
+                    padding: 5,
+                    borderRadius: 5,
+                    height: 35,
+                    width: "35%",
+                    marginTop: 5,
+                    marginLeft: 5,
+                  },
+                ]}
+              >
+                <Text style={styles.itemText}>
+                  Exit Date: {visitor.exitDate}
+                </Text>
+              </View>
+
+              <View
+                style={[
+                  {
+                    // borderWidth: 1,
+                    // borderBlockColor: "gray",
+                    backgroundColor: "#f2a0de",
+                    padding: 5,
+                    borderRadius: 5,
+                    height: 35,
+                    width: "59%",
+                    marginTop: 5,
+                    marginLeft: 10,
+                  },
+                ]}
+              >
+                <Text style={styles.itemText}>
+                  Exit Time: {visitor.exitTime}
+                </Text>
+              </View>
             </View>
           ))}
         </View>
@@ -113,6 +263,11 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 16,
     marginBottom: 5,
+  },
+  counterText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
 });
 
