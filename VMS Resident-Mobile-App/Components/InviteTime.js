@@ -4,7 +4,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "../Styles/DateStyle";
 
-function EntryTime({ entryTime, setEntryTime }) {
+function InviteTime({ inviteTime, setInviteTime }) {
   const [mode, setMode] = useState("time"); // Change mode to "time" for time picker
   const [time, setTime] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
@@ -19,7 +19,7 @@ function EntryTime({ entryTime, setEntryTime }) {
       setTime(currentTime);
       if (Platform.OS === "android") {
         toggleTimePicker();
-        setEntryTime(currentTime.toLocaleTimeString()); // Change toLocaleTimeString() to format time as desired
+        setInviteTime(currentTime.toLocaleTimeString()); // Change toLocaleTimeString() to format time as desired
       }
     } else {
       toggleTimePicker();
@@ -27,7 +27,7 @@ function EntryTime({ entryTime, setEntryTime }) {
   };
 
   const confirmIOSTime = () => {
-    setEntryTime(time.toLocaleTimeString()); // Change toLocaleTimeString() to format time as desired
+    setInviteTime(time.toLocaleTimeString()); // Change toLocaleTimeString() to format time as desired
     toggleTimePicker();
   };
 
@@ -49,8 +49,8 @@ function EntryTime({ entryTime, setEntryTime }) {
           <TextInput
             style={styles.inputStyle}
             placeholder="Enter Time"
-            value={entryTime}
-            onChangeText={setEntryTime}
+            value={inviteTime}
+            onChangeText={setInviteTime}
             editable={false}
             onPressIn={toggleTimePicker}
             placeholderTextColor="#c9d3d8"
@@ -105,4 +105,4 @@ function EntryTime({ entryTime, setEntryTime }) {
   );
 }
 
-export default EntryTime;
+export default InviteTime;

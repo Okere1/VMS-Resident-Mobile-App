@@ -4,7 +4,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "../Styles/DateStyle";
 
-function EntryDate({ entryDate, setEntryDate }) {
+function InviteDate({ inviteDate, setInviteDate }) {
   const [mode, setMode] = useState("date");
   const [date1, setDate1] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
@@ -19,7 +19,7 @@ function EntryDate({ entryDate, setEntryDate }) {
       setDate1(currentDate);
       if (Platform.OS === "android") {
         toggleDatePicker();
-        setEntryDate(currentDate.toDateString());
+        setInviteDate(currentDate.toDateString());
       }
     } else {
       toggleDatePicker();
@@ -27,7 +27,7 @@ function EntryDate({ entryDate, setEntryDate }) {
   };
 
   const confirmIOSDate = () => {
-    setEntryDate(date1.toDateString());
+    setInviteDate(date1.toDateString());
     toggleDatePicker();
   };
   return (
@@ -49,8 +49,8 @@ function EntryDate({ entryDate, setEntryDate }) {
           <TextInput
             style={styles.inputStyle}
             placeholder="Enter Date on Site"
-            value={entryDate}
-            onChangeText={setEntryDate}
+            value={inviteDate}
+            onChangeText={setInviteDate}
             editable={false}
             onPressIn={toggleDatePicker}
             placeholderTextColor="#c9d3d8"
@@ -102,4 +102,4 @@ function EntryDate({ entryDate, setEntryDate }) {
   );
 }
 
-export default EntryDate;
+export default InviteDate;

@@ -14,16 +14,16 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import EntryDate from "../Components/entryDate";
-import EntryTime from "../Components/entryTime";
+import InviteDate from "../Components/InviteDate";
+import InviteTime from "../Components/InviteTime";
 
 const InviteGuestForm = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [destination, setDestination] = useState("");
-  const [entryDate, setEntryDate] = useState("");
-  const [entryTime, setEntryTime] = useState("");
+  const [inviteDate, setInviteDate] = useState("");
+  const [inviteTime, setInviteTime] = useState("");
   const [entryCode, setEntryCode] = useState("");
   const [estateName, setEstateName] = useState("");
   const [residentId, setResidentId] = useState("");
@@ -65,22 +65,23 @@ const InviteGuestForm = () => {
 
   const visitorData = {
     name: name,
+    inviteDate: inviteDate,
+    inviteTime: inviteTime,
     destination: destination,
-    entryDate: entryDate,
-    entryTime: entryTime,
     entryCode: entryCode,
     residentId: residentId,
   };
 
   function sendVistorData() {
+    console.log("Sending Visitor Invite Data");
     axios
       .post("http://172.20.10.3:5002/inviteVisitor", visitorData)
       .then((res) => {
         if (res.data.status == "ok") {
           console.log("Vistors data successfully sent to DB");
           setName("");
-          setEntryDate("");
-          setEntryTime("");
+          setInviteDate("");
+          setInviteTime("");
           setDestination("");
           setEntryCode("");
           setMessage("");
@@ -172,12 +173,18 @@ const InviteGuestForm = () => {
               <Text style={[styles.inputLabel, { marginTop: 15 }]}>
                 Invite Date
               </Text>
-              <EntryDate entryDate={entryDate} setEntryDate={setEntryDate} />
+              <InviteDate
+                inviteDate={inviteDate}
+                setInviteDate={setInviteDate}
+              />
 
               <Text style={[styles.inputLabel, { marginTop: 15 }]}>
                 Invite Time
               </Text>
-              <EntryTime entryTime={entryTime} setEntryTime={setEntryTime} />
+              <InviteTime
+                inviteTime={inviteTime}
+                setInviteTime={setInviteTime}
+              />
               {/* <TextInput
                 style={styles.input}
                 placeholder="Enter email address"

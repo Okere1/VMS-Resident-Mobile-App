@@ -52,7 +52,7 @@ function DrawerContent(props) {
   function signOut() {
     AsyncStorage.setItem("isLoggedIn", "");
     AsyncStorage.setItem("token", "");
-    navigation.navigate("Login");
+    navigation.navigate("Login_1");
   }
 
   // GET USER DETAILS FROM DATABASE BACKEND OPERATIONS
