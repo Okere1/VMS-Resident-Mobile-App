@@ -41,11 +41,13 @@ const InviteGuestForm = () => {
 
   // Dont forget that the API called here is that of the Super Admin (To access the Admins Estate Name)
   async function getEstateName() {
-    axios.get("http://172.20.10.3:5003/getAdminData").then((res) => {
-      const estName = res.data[0];
-      console.log("Estate Name:", estName.estateName);
-      setEstateName(estName.estateName);
-    });
+    axios
+      .get("https://vms-super-admin-backend.onrender.com/getAdminData")
+      .then((res) => {
+        const estName = res.data[0];
+        console.log("Estate Name:", estName.estateName);
+        setEstateName(estName.estateName);
+      });
   }
 
   const getResidentId = async () => {
@@ -75,7 +77,7 @@ const InviteGuestForm = () => {
   function sendVistorData() {
     console.log("Sending Visitor Invite Data");
     axios
-      .post("http://172.20.10.3:5002/inviteVisitor", visitorData)
+      .post("https://vms-admin-backend.onrender.com/inviteVisitor", visitorData)
       .then((res) => {
         if (res.data.status == "ok") {
           console.log("Vistors data successfully sent to DB");

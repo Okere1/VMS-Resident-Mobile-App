@@ -1,8 +1,9 @@
-import AuthStack from "./AuthStack";
+import AuthStack from "../AuthStack/AuthStack";
 import { NavigationContainer } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import DrawerNav from "./DrawerNav";
+import DrawerNav from "../DrawerStack/DrawerNav";
+import { View } from "react-native";
 
 export default function Root() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,8 +19,11 @@ export default function Root() {
   }, []);
 
   return (
-    <NavigationContainer>
+    <>
+      {/* <NavigationContainer> */}
       {isLoggedIn ? <DrawerNav /> : <AuthStack />}
-    </NavigationContainer>
+      {/* <AuthStack /> */}
+      {/* </NavigationContainer> */}
+    </>
   );
 }

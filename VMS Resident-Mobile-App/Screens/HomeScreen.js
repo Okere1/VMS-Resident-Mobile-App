@@ -58,7 +58,7 @@ const HomeScreen = () => {
     console.log("Running getResidentData function");
     if (token) {
       axios
-        .post("http://172.20.10.3:5002/residentData", {
+        .post("https://vms-admin-backend.onrender.com/residentData", {
           token: token,
         })
         .then((res) => {
@@ -75,11 +75,13 @@ const HomeScreen = () => {
   }
 
   async function getEstateName() {
-    axios.get("http://172.20.10.3:5003/getAdminData").then((res) => {
-      const estName = res.data[0];
-      console.log("Estate Name:", estName.estateName);
-      setEstateName(estName.estateName);
-    });
+    axios
+      .get("https://vms-super-admin-backend.onrender.com/getAdminData")
+      .then((res) => {
+        const estName = res.data[0];
+        console.log("Estate Name:", estName.estateName);
+        setEstateName(estName.estateName);
+      });
   }
 
   useEffect(() => {

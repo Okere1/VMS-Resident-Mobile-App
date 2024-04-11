@@ -39,7 +39,10 @@ function RegisterPage() {
 
     if (emailVerify && passwordVerify) {
       axios
-        .post("http://172.20.10.3:5002/residentRegister", userData)
+        .post(
+          "https://vms-admin-backend.onrender.com/residentRegister",
+          userData
+        )
         .then((res) => {
           // console.log(res.data);
           if (res.data.status == "ok") {

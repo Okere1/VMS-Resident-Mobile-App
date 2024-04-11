@@ -52,7 +52,7 @@ function DrawerContent(props) {
   function signOut() {
     AsyncStorage.setItem("isLoggedIn", "");
     AsyncStorage.setItem("token", "");
-    navigation.navigate("Login_1");
+    navigation.navigate("Login");
   }
 
   // GET USER DETAILS FROM DATABASE BACKEND OPERATIONS
@@ -62,7 +62,7 @@ function DrawerContent(props) {
     const token = await AsyncStorage.getItem("token");
     // console.log(token);
     axios
-      .post("http://172.20.10.3:5002/residentData", {
+      .post("https://vms-admin-backend.onrender.com/residentData", {
         token: token,
       })
       .then((res) => {

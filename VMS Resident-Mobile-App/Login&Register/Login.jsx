@@ -27,7 +27,7 @@ function LoginPage() {
     };
 
     axios
-      .post("http://172.20.10.3:5002/residentLogin", userData)
+      .post("https://vms-admin-backend.onrender.com/residentLogin", userData)
       .then((res) => {
         // console.log(res.data);
         if (res.data.status == "ok") {
@@ -37,7 +37,7 @@ function LoginPage() {
           console.log("Token is:", res.data.data);
           const token = res.data.data;
           axios
-            .post("http://172.20.10.3:5002/residentData", {
+            .post("https://vms-admin-backend.onrender.com/residentData", {
               token: token,
             })
             .then((res) => {
@@ -50,7 +50,7 @@ function LoginPage() {
               AsyncStorage.setItem("residentId", res.data.data.residentId);
             })
             .catch((error) => console.log(error));
-          navigation.navigate("Home_1");
+          navigation.navigate("Home");
         } else {
           Alert.alert(res.data.data);
         }
