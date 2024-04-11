@@ -50,7 +50,7 @@ function LoginPage() {
               AsyncStorage.setItem("residentId", res.data.data.residentId);
             })
             .catch((error) => console.log(error));
-          navigation.navigate("Home");
+          navigation.navigate("Homes");
         } else {
           Alert.alert(res.data.data);
         }

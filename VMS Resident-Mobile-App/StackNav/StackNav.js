@@ -10,14 +10,21 @@ import ProfileScreen from "../Screens/ProfileScreen";
 import ReportScreen from "../Screens/ReportScreen";
 import CommitteeScreen from "../Screens/CommitteeScreen";
 import ChatScreen from "../Screens/ChatScreen";
+import LoginPage from "../Login&Register/Login";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default StackNav = () => {
   const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator
+      drawerContent={(props) => <DrawerContent {...props} />}
+      initialRouteName="Home"
       screenOptions={{
-        headerShown: false,
+        headerStyle: {
+          backgroundColor: "#007bff",
+        },
+        headerTintColor: "#ffffff",
       }}
     >
       <Stack.Screen name="Home" component={HomeScreen} />
@@ -26,6 +33,11 @@ export default StackNav = () => {
       <Stack.Screen name="Committee" component={CommitteeScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Chat" component={ChatScreen} />
+      {/* <Stack.Screen
+        name="LoginUsers"
+        component={LoginPage}
+        options={{ headerShown: false }}
+      /> */}
     </Stack.Navigator>
   );
 };

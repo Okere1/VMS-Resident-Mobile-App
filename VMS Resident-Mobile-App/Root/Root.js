@@ -20,10 +20,9 @@ export default function Root() {
 
   return (
     <>
-      {/* <NavigationContainer> */}
-      {isLoggedIn ? <DrawerNav /> : <AuthStack />}
-      {/* <AuthStack /> */}
-      {/* </NavigationContainer> */}
+      <NavigationContainer>
+        {isLoggedIn ? <DrawerNav /> : <AuthStack />}
+      </NavigationContainer>
     </>
   );
 }
