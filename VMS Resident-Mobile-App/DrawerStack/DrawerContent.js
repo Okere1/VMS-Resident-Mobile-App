@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Avatar, Title } from "react-native-paper";
@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { AuthContext } from "../store/auth-context";
 
 const DrawerList = [
   { icon: "home-outline", label: "Home", navigateTo: "Home" },
@@ -46,13 +47,11 @@ const DrawerLayout = ({ icon, label, navigateTo }) => {
 
 // PREPARE THE DRAWER CONTENT
 function DrawerContent(props) {
-  const navigation = useNavigation();
+  const authCtx = useContext(AuthContext);
 
   // HANDLE SIGNOUT
   function signOut() {
-    AsyncStorage.setItem("isLoggedIn", "");
-    AsyncStorage.setItem("token", "");
-    navigation.navigate("Login");
+    authCtx.logout();
   }
 
   // GET USER DETAILS FROM DATABASE BACKEND OPERATIONS
@@ -66,7 +65,7 @@ function DrawerContent(props) {
         token: token,
       })
       .then((res) => {
-        // console.log(res.data.data.name);
+        console.log(res.data.data.name);
         setResidentInfor(res.data.data);
         // console.log(userInfor.names);
       })

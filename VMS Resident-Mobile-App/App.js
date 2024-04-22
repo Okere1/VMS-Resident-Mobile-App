@@ -1,5 +1,10 @@
 import Root from "./Root/Root";
+import AuthContextProvider from "./store/auth-context";
 
 export default function App() {
-  return <Root />;
+  return (
+    <AuthContextProvider>
+      <Root />
+    </AuthContextProvider>
+  );
 }

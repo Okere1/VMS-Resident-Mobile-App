@@ -14,13 +14,18 @@ import ProfileScreen from "../Screens/ProfileScreen.js";
 // import SignOutScreen from "../Screens/SignOutScreen.js";
 import StackNav from "../StackNav/StackNav.js";
 import LoginPage from "../Login&Register/Login.jsx";
+import AuthenticatedStack from "../AuthStack/AuthenticatedStack.js";
+import AuthStack from "../AuthStack/AuthStack.js";
 // import AuthStack from "../AuthStack/AuthStack.js";
 // import LoginPage from "../Login&Register/Login.jsx";
+import { AuthContext } from "../store/auth-context";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
 export default function DrawerNav() {
+  const authCtx = React.useContext(AuthContext);
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => <DrawerContent {...props} />}
@@ -39,12 +44,6 @@ export default function DrawerNav() {
       <Drawer.Screen name="Committee" component={CommitteeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
       <Drawer.Screen name="Chat" component={ChatScreen} />
-      {/* <Drawer.Screen
-        name="SignOut"
-        component={LoginPage}
-        options={{ headerShown: false, drawerLockMode: "locked-closed" }}
-      /> */}
-      {/* <Drawer.Screen name="Homes" component={StackNav} /> */}
     </Drawer.Navigator>
   );
 }

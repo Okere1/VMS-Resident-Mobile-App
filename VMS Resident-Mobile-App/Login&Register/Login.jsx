@@ -10,13 +10,15 @@ import {
 import styles from "../Styles/LoginStyle";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../store/auth-context";
 
 function LoginPage() {
   const [residentEmail, setResidentEmail] = useState("");
   const [residentPassword, setResidentPassword] = useState("");
+  const authContext = useContext(AuthContext)
   const navigation = useNavigation();
 
   function handleSubmit() {
@@ -33,9 +35,12 @@ function LoginPage() {
         if (res.data.status == "ok") {
           Alert.alert("Login Successful");
           AsyncStorage.setItem("token", res.data.data); // storing the backend created token save in the data property in the Asyncstorage variable to be access on any file
-          AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
-          console.log("Token is:", res.data.data);
+          AsyncStorage.setItem("isLoggedIn", "loggedIn");
+          
           const token = res.data.data;
+          authContext.authenticate(token);
+          console.log("Token is:", token);
+          
           axios
             .post("https://vms-admin-backend.onrender.com/residentData", {
               token: token,
@@ -50,7 +55,7 @@ function LoginPage() {
               AsyncStorage.setItem("residentId", res.data.data.residentId);
             })
             .catch((error) => console.log(error));
-          navigation.navigate("Homes");
+          // navigation.navigate("DrawerNav");
         } else {
           Alert.alert(res.data.data);
         }

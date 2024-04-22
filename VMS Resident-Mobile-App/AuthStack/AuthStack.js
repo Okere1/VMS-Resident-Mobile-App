@@ -17,7 +17,6 @@ export default AuthStack = () => {
     >
       <Stack.Screen name="Login" component={LoginPage} />
       <Stack.Screen name="Register" component={RegisterPage} />
-      <Stack.Screen name="Homes" component={DrawerNav} />
     </Stack.Navigator>
   );
 };
