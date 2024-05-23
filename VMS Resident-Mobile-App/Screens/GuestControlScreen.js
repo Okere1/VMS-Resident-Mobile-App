@@ -120,6 +120,7 @@ const InviteGuestForm = () => {
     // Construct message with token and other text
     const fullMessage = `${message} Your access token is: ${entryCode}`;
     console.log("handleSend Function has been called");
+
     // Implement logic to send message based on selected communication option
     if (communicationOption === "email") {
       // Send email
@@ -187,14 +188,6 @@ const InviteGuestForm = () => {
                 inviteTime={inviteTime}
                 setInviteTime={setInviteTime}
               />
-              {/* <TextInput
-                style={styles.input}
-                placeholder="Enter email address"
-                placeholderTextColor="lightgray"
-                value={email}
-                onChangeText={(text) => setEmail(text)}
-                keyboardType="email-address"
-              /> */}
             </View>
             <Text
               style={[styles.inputLabel, { marginTop: 15, color: "#979a9c" }]}
@@ -305,10 +298,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: "#404744",
     backgroundColor: "#e9f0f0",
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
   },
   inputLabel: {
     fontSize: 15,

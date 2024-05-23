@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "../Styles/DateStyle";
 
 function InviteTime({ inviteTime, setInviteTime }) {
-  const [mode, setMode] = useState("time"); // Change mode to "time" for time picker
+  const [mode, setMode] = useState("time");
   const [time, setTime] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
 
@@ -19,7 +19,7 @@ function InviteTime({ inviteTime, setInviteTime }) {
       setTime(currentTime);
       if (Platform.OS === "android") {
         toggleTimePicker();
-        setInviteTime(currentTime.toLocaleTimeString()); // Change toLocaleTimeString() to format time as desired
+        setInviteTime(currentTime.toLocaleTimeString());
       }
     } else {
       toggleTimePicker();
@@ -27,13 +27,14 @@ function InviteTime({ inviteTime, setInviteTime }) {
   };
 
   const confirmIOSTime = () => {
-    setInviteTime(time.toLocaleTimeString()); // Change toLocaleTimeString() to format time as desired
+    setInviteTime(time.toLocaleTimeString());
     toggleTimePicker();
   };
 
   return (
     <View>
       {/* Entry Time */}
+
       {showPicker && (
         <DateTimePicker
           mode={mode}

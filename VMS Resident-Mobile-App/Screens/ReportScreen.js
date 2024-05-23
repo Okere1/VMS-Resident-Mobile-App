@@ -14,7 +14,6 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import * as FileSystem from "expo-file-system"; // Import FileSystem from Expo
 import { FontAwesome } from "@expo/vector-icons"; // Import FontAwesome icons
 
 function ReportScreen(props) {
@@ -103,58 +102,6 @@ function ReportScreen(props) {
 
     setFilteredVisitorData(filtered);
   };
-
-  // const downloadAllContent = async () => {
-  //   filteredVisitorData.forEach(async (visitor) => {
-  //     // Check if fileUrl is not null or empty
-  //     if (visitor.fileUrl) {
-  //       try {
-  //         const downloadResult = await FileSystem.downloadAsync(
-  //           visitor.fileUrl,
-  //           FileSystem.documentDirectory + visitor.fileName
-  //         );
-
-  //         if (downloadResult.status === 200) {
-  //           console.log("File downloaded successfully:", downloadResult.uri);
-  //         } else {
-  //           console.error("File download failed:", downloadResult.error);
-  //         }
-  //       } catch (error) {
-  //         console.error("Error downloading file:", error);
-  //       }
-  //     } else {
-  //       console.warn("File URL is missing for visitor:", visitor);
-  //     }
-  //   });
-  // };
-
-  // const downloadGroupContent = async (group) => {
-  //   const groupData = filteredVisitorData.filter(
-  //     (visitor) => visitor.group === group
-  //   );
-
-  //   groupData.forEach(async (visitor) => {
-  //     // Check if fileUrl is not null or empty
-  //     if (visitor.fileUrl) {
-  //       try {
-  //         const downloadResult = await FileSystem.downloadAsync(
-  //           visitor.fileUrl,
-  //           FileSystem.documentDirectory + visitor.fileName
-  //         );
-
-  //         if (downloadResult.status === 200) {
-  //           console.log("File downloaded successfully:", downloadResult.uri);
-  //         } else {
-  //           console.error("File download failed:", downloadResult.error);
-  //         }
-  //       } catch (error) {
-  //         console.error("Error downloading file:", error);
-  //       }
-  //     } else {
-  //       console.warn("File URL is missing for visitor:", visitor);
-  //     }
-  //   });
-  // };
 
   let visitorCounter = 1;
 

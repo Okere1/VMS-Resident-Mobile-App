@@ -18,7 +18,7 @@ import { AuthContext } from "../store/auth-context";
 function LoginPage() {
   const [residentEmail, setResidentEmail] = useState("");
   const [residentPassword, setResidentPassword] = useState("");
-  const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext);
   const navigation = useNavigation();
 
   function handleSubmit() {
@@ -34,13 +34,13 @@ function LoginPage() {
         // console.log(res.data);
         if (res.data.status == "ok") {
           Alert.alert("Login Successful");
-          AsyncStorage.setItem("token", res.data.data); // storing the backend created token save in the data property in the Asyncstorage variable to be access on any file
+          AsyncStorage.setItem("token", res.data.data); // storing the backend created token and async storage save to be access on any file
           AsyncStorage.setItem("isLoggedIn", "loggedIn");
-          
+
           const token = res.data.data;
           authContext.authenticate(token);
           console.log("Token is:", token);
-          
+
           axios
             .post("https://vms-admin-backend.onrender.com/residentData", {
               token: token,

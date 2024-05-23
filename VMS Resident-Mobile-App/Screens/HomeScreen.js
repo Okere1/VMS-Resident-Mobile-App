@@ -8,8 +8,6 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import Mobile from "react-native-vector-icons/Entypo";
-import Icon from "react-native-vector-icons/FontAwesome5";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Invite from "react-native-vector-icons/MaterialIcons";
@@ -23,11 +21,6 @@ import Estate from "react-native-vector-icons/MaterialCommunityIcons";
 import Flat from "react-native-vector-icons/FontAwesome6";
 
 const HomeScreen = () => {
-  const [residentNameFetch, setResidentNameFetch] = useState();
-  const [userData, setUserData] = useState("");
-  const [doneTaskCount, setDoneTaskCount] = useState("");
-  const [pendingTaskCount, setPendingTaskCount] = useState("");
-  const [suspendedTaskCount, setSuspendedTaskCount] = useState("");
   const [estateName, setEstateName] = useState("");
   const [residentStreet, setResidentStreet] = useState("");
   const [residentFlatNumber, setResidentFlatNumber] = useState("");
@@ -96,8 +89,6 @@ const HomeScreen = () => {
         <View style={styles.container}>
           <View
             style={{
-              //   justifyContent: "center",
-              //   alignItems: "center",
               marginTop: 50,
               marginLeft: 15,
               marginRight: 15,
@@ -115,14 +106,6 @@ const HomeScreen = () => {
               style={styles.tinyLogo}
               source={require("../assets/visitor.png")}
             />
-            {/* <Image
-              style={styles.tinyLogo}
-              source={require("../assets/visitor1.jfif")}
-            /> */}
-            {/* <Image
-              style={styles.tinyLogo}
-              source={require("../assets/hero3.jpg")}
-            /> */}
           </View>
           <View style={styles.welcome}>
             <Text style={styles.welcome}>Welcome {residentName}</Text>
@@ -288,44 +271,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 35,
   },
-  text: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-  },
   tinyLogo: {
     width: 381,
     height: 120,
   },
-  editIcon: {
-    zIndex: 1,
-    color: "white",
-    position: "absolute",
-    right: 2,
-    margin: 20,
-  },
-  backIcon: {
-    zIndex: 1,
-    color: "white",
-    position: "absolute",
-    left: 2,
-    margin: 15,
-  },
-  button: {
-    alignItems: "center",
-    marginTop: -20,
-    alignItems: "center",
-    textAlign: "center",
-    margin: 20,
-  },
-  inBut: {
-    width: "70%",
-    backgroundColor: "#00425F",
-    alignItems: "center",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 50,
-  },
+
   inBut2: {
     // backgroundColor: "#00425F",
     backgroundColor: "#7b4dd6",
@@ -350,14 +300,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginTop: 5,
   },
-  taskBox: {
-    marginTop: 40,
-    flexDirection: "row",
-    gap: 10,
-    paddingLeft: 15,
-    height: 150,
-  },
-
   infoCont: {
     width: "100%",
     flexDirection: "row",

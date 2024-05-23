@@ -3,8 +3,6 @@ import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import { useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DrawerNav from "../DrawerStack/DrawerNav";
-import { View } from "react-native";
-import AuthenticatedStack from "../AuthStack/AuthenticatedStack";
 import { AuthContext } from "../store/auth-context";
 
 function Navigation() {
@@ -18,7 +16,6 @@ function Navigation() {
 }
 
 export default function Root() {
-
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {

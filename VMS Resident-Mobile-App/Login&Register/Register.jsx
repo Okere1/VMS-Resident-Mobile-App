@@ -11,15 +11,12 @@ import {
 import styles from "../Styles/LoginStyle";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import Location from "react-native-vector-icons/Entypo";
 import Feather from "react-native-vector-icons/Feather";
 import Error from "react-native-vector-icons/MaterialIcons";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-// import RNPickerSelect from "react-native-picker-select";
-// import pickerSelectStyles from "../Styles/RNStyle_Register";
 
 function RegisterPage() {
   [residentEmail, setResidentEmail] = useState("");
