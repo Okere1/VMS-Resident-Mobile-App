@@ -29,17 +29,17 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
 
-  console.log("Outside functions, FlatNumber is:", residentFlatNumber);
-  console.log("Outside functions, Street Name is:", residentStreet);
-  console.log("Outside functions, Resident Name is:", residentName);
-  console.log("Outside functions, token is:", token);
-  console.log("Outside functions, estate Name is:", estateName);
+  // console.log("Outside functions, FlatNumber is:", residentFlatNumber);
+  // console.log("Outside functions, Street Name is:", residentStreet);
+  // console.log("Outside functions, Resident Name is:", residentName);
+  // console.log("Outside functions, token is:", token);
+  // console.log("Outside functions, estate Name is:", estateName);
 
   const getToken = async () => {
     try {
       const data = await AsyncStorage.getItem("token");
       if (data !== null) {
-        console.log("Token inside useEffect is:", data);
+        // console.log("Token inside useEffect is:", data);
         setToken(data);
       }
     } catch (error) {
@@ -48,7 +48,7 @@ const HomeScreen = () => {
   };
 
   async function getResidentData() {
-    console.log("Running getResidentData function");
+    // console.log("Running getResidentData function");
     if (token) {
       axios
         .post("https://vms-admin-backend.onrender.com/residentData", {
@@ -61,9 +61,9 @@ const HomeScreen = () => {
         })
         .catch((error) => console.log(error));
     } else {
-      console.log(
-        "Could not perform axios get request on getResidentData function"
-      );
+      // console.log(
+      //   "Could not perform axios get request on getResidentData function"
+      // );
     }
   }
 
@@ -72,7 +72,7 @@ const HomeScreen = () => {
       .get("https://vms-super-admin-backend.onrender.com/getAdminData")
       .then((res) => {
         const estName = res.data[0];
-        console.log("Estate Name:", estName.estateName);
+        // console.log("Estate Name:", estName.estateName);
         setEstateName(estName.estateName);
       });
   }

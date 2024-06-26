@@ -27,6 +27,8 @@ function LoginPage() {
       residentEmail: residentEmail,
       residentPassword,
     };
+    console.log("Resident Inputed Email is:", residentEmail);
+    console.log("Resident Inputed Password is:", residentPassword);
 
     axios
       .post("https://vms-admin-backend.onrender.com/residentLogin", userData)
@@ -39,18 +41,18 @@ function LoginPage() {
 
           const token = res.data.data;
           authContext.authenticate(token);
-          console.log("Token is:", token);
+          // console.log("Token is:", token);
 
           axios
             .post("https://vms-admin-backend.onrender.com/residentData", {
               token: token,
             })
             .then((res) => {
-              console.log("Resident Name from Login is:", res.data.data.name);
-              console.log(
-                "Resident Estate ID from Login is:",
-                res.data.data.residentId
-              );
+              // console.log("Resident Name from Login is:", res.data.data.name);
+              // console.log(
+              //   "Resident Estate ID from Login is:",
+              //   res.data.data.residentId
+              // );
               AsyncStorage.setItem("residentName", res.data.data.name);
               AsyncStorage.setItem("residentId", res.data.data.residentId);
             })
